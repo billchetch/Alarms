@@ -379,8 +379,6 @@ public class AlarmManager
         return false;
     }
 
-    
-
     public bool IsAlarmDisabled(String alarmID)
     {
         Alarm alarm = GetAlarm(alarmID, true);
