@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alarms", "Alarms\Alarms.csproj", "{4CF5256E-6D11-48A2-B40E-64A09DB9FABD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChetchXMPP", "..\ChetchXMPP\ChetchXMPP\ChetchXMPP.csproj", "{A4D2331F-A1B2-4A0A-94D4-3BC527AEAED3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messaging", "..\Messaging\Messaging\Messaging.csproj", "{9A94B064-EF8B-4C0B-9D58-DF1C4E8A725B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4CF5256E-6D11-48A2-B40E-64A09DB9FABD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CF5256E-6D11-48A2-B40E-64A09DB9FABD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CF5256E-6D11-48A2-B40E-64A09DB9FABD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CF5256E-6D11-48A2-B40E-64A09DB9FABD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4D2331F-A1B2-4A0A-94D4-3BC527AEAED3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4D2331F-A1B2-4A0A-94D4-3BC527AEAED3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4D2331F-A1B2-4A0A-94D4-3BC527AEAED3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4D2331F-A1B2-4A0A-94D4-3BC527AEAED3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A94B064-EF8B-4C0B-9D58-DF1C4E8A725B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A94B064-EF8B-4C0B-9D58-DF1C4E8A725B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A94B064-EF8B-4C0B-9D58-DF1C4E8A725B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A94B064-EF8B-4C0B-9D58-DF1C4E8A725B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
