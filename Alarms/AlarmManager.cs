@@ -33,6 +33,7 @@ public class AlarmManager
         CRITICAL,
     }
 
+    //Users of this library implement this interface
     public interface IAlarmRaiser
     {
         AlarmManager AlarmManager { get; set; }
