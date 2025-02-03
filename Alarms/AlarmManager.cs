@@ -41,7 +41,7 @@ public class AlarmManager
         void RegisterAlarms();
     }
 
-    public class AlarmRaiser : AlarmManager.IAlarmRaiser
+    /*public class AlarmRaiser : AlarmManager.IAlarmRaiser
     {
         public AlarmManager AlarmManager { get; set; }
 
@@ -61,7 +61,7 @@ public class AlarmManager
         {
             AlarmManager.RegisterAlarm(this, AlarmID, AlarmName);
         }
-    }
+    }*/
 
     public class Alarm
     {
@@ -315,12 +315,12 @@ public class AlarmManager
         _alarms.Remove(alarmID);
     }
 
-    public AlarmRaiser AddRaiser(String alarmID, String alarmName, String source)
+    /*public AlarmRaiser AddRaiser(String alarmID, String alarmName, String source)
     {
         var ar = new AlarmRaiser(alarmID, alarmName, source);
         AddRaiser(ar);
         return ar;
-    }
+    }*/
 
     public void AddRaiser(IAlarmRaiser raiser)
     {
