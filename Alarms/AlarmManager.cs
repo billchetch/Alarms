@@ -15,6 +15,8 @@ public class AlarmManager
     public const int NO_CODE = 0;
     public const int CODE_START_TEST = 1;
     public const int CODE_END_TEST = 2;
+
+    public const int CODE_CONNECTING = 3;
     
     public const String MESSAGE_FIELD_ALARMS_LIST = "Alarms";
     public const String MESSAGE_FIELD_ALARM = "Alarm";
@@ -41,28 +43,6 @@ public class AlarmManager
         void RegisterAlarms();
     }
 
-    /*public class AlarmRaiser : AlarmManager.IAlarmRaiser
-    {
-        public AlarmManager AlarmManager { get; set; }
-
-        public String AlarmID { get; set; }
-        public String AlarmName { get; set; }
-
-        public String Source { get; set; }
-        
-        public AlarmRaiser(String alarmID, String alarmName, String source)
-        {
-            AlarmID = alarmID;
-            AlarmName = alarmName;
-            Source = source;
-        }
-
-        public void RegisterAlarms()
-        {
-            AlarmManager.RegisterAlarm(this, AlarmID, AlarmName);
-        }
-    }*/
-
     public class Alarm
     {
         static private bool isRaisingState(AlarmState state)
@@ -72,7 +52,7 @@ public class AlarmManager
 
         public String ID { get; set; }
 
-        public String Name { get; set; }
+        public String? Name { get; set; }
 
 
         private AlarmState _state = AlarmState.DISCONNECTED;
@@ -94,14 +74,17 @@ public class AlarmManager
                     throw new Exception(String.Format("Alarm {0} cannot be disabled", ID));
                 }
                 
+                bool changed = _state != value;
+                var oldState = _state;
                 _state = value;
-                if (!IsTesting)
+                if (!IsTesting && changed)
                 {
                     if (IsRaised)
                     {
                         LastRaised = DateTime.Now;
+                        LastLowered = null;
                     }
-                    else if (IsLowered)
+                    else if (IsLowered && isRaisingState(oldState))
                     {
                         LastLowered = DateTime.Now;
                     }
@@ -114,7 +97,7 @@ public class AlarmManager
         }
 
         [JsonIgnore]
-        public IAlarmRaiser Raiser { get; set; }
+        public IAlarmRaiser? Raiser { get; set; }
 
         public bool Testing { get; internal set; } = false;
 
@@ -135,30 +118,28 @@ public class AlarmManager
 
         public bool CanDisable { get; set; } = true;
 
-        public String Message { get; set; }
+        public String Message { get; set; } = String.Empty;
 
         public int Code { get; set; }
 
-        public DateTime LastRaised { get; set; }
+        public DateTime? LastRaised { get; set; }
 
-        public DateTime LastLowered { get; set; }
+        public DateTime? LastLowered { get; set; }
 
-        public DateTime LastDisabled { get; set; }
+        public DateTime? LastDisabled { get; set; }
 
 
         [JsonConstructor]
-        public Alarm() { }
-
         public Alarm(String alarmID)
         {
             ID = alarmID;
         }
 
-        public bool Update(AlarmState state, String message = null, int code = NO_CODE)
+        public bool Update(AlarmState state, String? message = null, int code = NO_CODE)
         {
             bool changed = state != State;
             State = state;
-            Message = message;
+            Message = message == null ? String.Empty : message;
             if (!changed) changed = code != Code;
             Code = code;
             return changed;
@@ -385,7 +366,7 @@ public class AlarmManager
         return alarm.IsDisabled;
     }
 
-    public Alarm UpdateAlarm(String alarmID, AlarmState alarmState, String alarmMessage, int code = NO_CODE)
+    public Alarm UpdateAlarm(String alarmID, AlarmState alarmState, String? alarmMessage, int code = NO_CODE)
     {
         Alarm alarm = GetAlarm(alarmID, true);
         bool changed = alarm.Update(alarmState, alarmMessage, code);
@@ -480,9 +461,9 @@ public class AlarmManager
 
     public void RunTest(String alarmID, AlarmState alarmState, String alarmMessage, int duration, int code  = NO_CODE)
     {
-        Task.Run(() =>
+        StartTest(alarmID, alarmState, alarmMessage, code);
+        var task = Task.Run(() =>
         {
-            StartTest(alarmID, alarmState, alarmMessage, code);
             Thread.Sleep(duration);
             EndTest();
         });
@@ -495,7 +476,7 @@ public class AlarmManager
         {
             if(!alarm.IsConnected && (raiser == null || alarm.Raiser == raiser) && !alarm.IsDisabled)
             {
-                Lower(alarm.ID, String.Format("Connecting {0}", alarm.ID), NO_CODE);
+                Lower(alarm.ID, String.Format("Connecting {0}", alarm.ID), CODE_CONNECTING);
             }
         }
     }
