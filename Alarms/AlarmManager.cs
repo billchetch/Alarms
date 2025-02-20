@@ -24,6 +24,15 @@ public class AlarmManager
     public const String COMMAND_LIST_ALARMS = "list-alarms";
     public const String COMMAND_TEST_ALARM = "test-alarm";
 
+    static public AlarmState GetRandomRaisedState()
+    {
+        Array values = Enum.GetValues(typeof(AlarmManager.AlarmState));
+        Random random = new Random();
+        int idx = random.Next(3, values.Length);
+        var obj = values.GetValue(idx);
+        return obj == null ? AlarmState.CRITICAL : (AlarmState)obj;
+    }
+
     public enum AlarmState
     {
         DISABLED,
