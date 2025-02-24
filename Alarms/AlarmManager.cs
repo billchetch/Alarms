@@ -61,12 +61,13 @@ public class AlarmManager
             return state > AlarmState.LOWERED;
         }
 
-        public String ID { get; set; }
+        public String ID { get; set; } = String.Empty;
 
         public String? Name { get; set; }
 
 
         private AlarmState _state = AlarmState.DISCONNECTED;
+
         public AlarmState State
         {
             get
@@ -141,6 +142,8 @@ public class AlarmManager
 
 
         [JsonConstructor]
+        public Alarm(){}
+
         public Alarm(String alarmID)
         {
             ID = alarmID;
