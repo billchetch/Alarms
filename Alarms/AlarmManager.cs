@@ -18,8 +18,6 @@ public class AlarmManager
 
     public const int CODE_CONNECTING = 3;
     
-    public const String ALARMS_SERVICE_NAME = "bbalarm.service@openfire.bb.lan";
-
     public const String MESSAGE_FIELD_ALARMS_LIST = "Alarms";
     public const String MESSAGE_FIELD_ALARM = "Alarm";
     
@@ -526,7 +524,7 @@ public class AlarmManager
         UpdateAlarm(alarm.ID, alarm.State, alarm.Message);
     }
 
-    public Message CreateAlertMessage(Alarm alarm, String target = ALARMS_SERVICE_NAME)
+    public Message CreateAlertMessage(Alarm alarm, String target)
     {
         Message alert = ChetchXMPPMessaging.CreateAlertMessage((int)alarm.State);
         alert.Target = target;
