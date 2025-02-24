@@ -524,10 +524,13 @@ public class AlarmManager
         UpdateAlarm(alarm.ID, alarm.State, alarm.Message);
     }
 
-    public Message CreateAlertMessage(Alarm alarm, String target)
+    public Message CreateAlertMessage(Alarm alarm, String? target = null)
     {
         Message alert = ChetchXMPPMessaging.CreateAlertMessage((int)alarm.State);
-        alert.Target = target;
+        if(target != null)
+        {
+            alert.Target = target;
+        }
         alert.AddValue(MESSAGE_FIELD_ALARM, alarm);
         return alert;
     }
