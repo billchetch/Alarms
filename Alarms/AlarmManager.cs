@@ -17,7 +17,7 @@ public class AlarmManager
     public const int CODE_END_TEST = 2;
 
     public const int CODE_CONNECTING = 3;
-    
+
     public const String MESSAGE_FIELD_ALARMS_LIST = "Alarms";
     public const String MESSAGE_FIELD_ALARM = "Alarm";
     
@@ -63,6 +63,7 @@ public class AlarmManager
 
         public String? Name { get; set; }
 
+        public String? Source { get; set; } 
 
         private AlarmState _state = AlarmState.DISCONNECTED;
 
@@ -482,7 +483,7 @@ public class AlarmManager
     }
 
 
-    public void Connect(IAlarmRaiser raiser = null)
+    public void Connect(IAlarmRaiser? raiser = null)
     {
         foreach(var alarm in _alarms.Values)
         {
@@ -495,12 +496,24 @@ public class AlarmManager
 
 
 
-    public void Disconnect(IAlarmRaiser raiser = null) //String alarmID, String alarmMessage, int code = AlarmsMessageSchema.CODE_SOURCE_OFFLINE)
+    public void Disconnect(IAlarmRaiser? raiser = null) //String alarmID, String alarmMessage, int code = AlarmsMessageSchema.CODE_SOURCE_OFFLINE)
     {
 
         foreach (var alarm in _alarms.Values)
         {
-            if (alarm.IsConnected && (raiser == null || alarm.Raiser == raiser) && !alarm.IsDisabled)
+            if (alarm.IsConnected && (raiser == null || alarm.Raiser == raiser))
+            {
+                UpdateAlarm(alarm.ID, AlarmState.DISCONNECTED, String.Format("Disconnecting {0}", alarm.ID), NO_CODE);
+            }
+        }
+    }
+
+    public void Disconnect(String alarmSource) //String alarmID, String alarmMessage, int code = AlarmsMessageSchema.CODE_SOURCE_OFFLINE)
+    {
+
+        foreach (var alarm in _alarms.Values)
+        {
+            if (alarm.IsConnected && alarm.Source == alarmSource)
             {
                 UpdateAlarm(alarm.ID, AlarmState.DISCONNECTED, String.Format("Disconnecting {0}", alarm.ID), NO_CODE);
             }
