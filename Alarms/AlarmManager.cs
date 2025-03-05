@@ -494,8 +494,19 @@ public class AlarmManager
         }
     }
 
+    public void Connect(String alarmSource) //String alarmID, String alarmMessage, int code = AlarmsMessageSchema.CODE_SOURCE_OFFLINE)
+    {
 
+        foreach (var alarm in _alarms.Values)
+        {
+            if (!alarm.IsConnected && !alarm.IsDisabled && alarm.Source == alarmSource)
+            {
+                Lower(alarm.ID, String.Format("Connecting {0}", alarm.ID), CODE_CONNECTING);
+            }
+        }
+    }
 
+    
     public void Disconnect(IAlarmRaiser? raiser = null) //String alarmID, String alarmMessage, int code = AlarmsMessageSchema.CODE_SOURCE_OFFLINE)
     {
 
