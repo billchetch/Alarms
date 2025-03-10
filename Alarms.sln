@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChetchXMPP", "..\ChetchXMPP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messaging", "..\Messaging\Messaging\Messaging.csproj", "{9A94B064-EF8B-4C0B-9D58-DF1C4E8A725B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utilities", "..\Utilities\Utilities\Utilities.csproj", "{1B94F0EA-C7D6-44BC-9FDE-DA4658C2FDEE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{9A94B064-EF8B-4C0B-9D58-DF1C4E8A725B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A94B064-EF8B-4C0B-9D58-DF1C4E8A725B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9A94B064-EF8B-4C0B-9D58-DF1C4E8A725B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B94F0EA-C7D6-44BC-9FDE-DA4658C2FDEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B94F0EA-C7D6-44BC-9FDE-DA4658C2FDEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B94F0EA-C7D6-44BC-9FDE-DA4658C2FDEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B94F0EA-C7D6-44BC-9FDE-DA4658C2FDEE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

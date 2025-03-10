@@ -10,6 +10,7 @@
   <ItemGroup>
     <ProjectReference Include="../../ChetchXMPP/ChetchXMPP/ChetchXMPP.csproj" />
     <ProjectReference Include="../../Messaging/Messaging/Messaging.csproj" />
+    <ProjectReference Include="../../Utilities/Utilities/Utilities.csproj" />
   </ItemGroup>
 
 </Project>

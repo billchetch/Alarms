@@ -7,6 +7,7 @@ using Chetch.Messaging;
 using Chetch.ChetchXMPP;
 using System.ComponentModel;
 using System.Text.Json.Serialization;
+using Chetch.Utilities;
 
 namespace Chetch.Alarms;
 
@@ -211,7 +212,11 @@ public class AlarmManager
         }
     }
 
+    DispatchQueue<Alarm> alarmQueue = [];
+
     public event EventHandler<Alarm> AlarmChanged;
+
+    public event EventHandler<Alarm> AlarmDequeued;
 
     public List<IAlarmRaiser> AlarmRaisers { get; internal set; } = new List<IAlarmRaiser>();
     private Dictionary<String, Alarm> _alarms = new Dictionary<String, Alarm>();
@@ -276,7 +281,12 @@ public class AlarmManager
 
     public bool IsTesting => alarmUnderTest != null && alarmUnderTest.IsTesting;
 
-    public AlarmManager(){}
+    public AlarmManager()
+    {
+        alarmQueue.Dequeued += (sender, alarm) => {
+            AlarmDequeued?.Invoke(this, alarm);
+        };
+    }
 
     public Alarm RegisterAlarm(IAlarmRaiser raiser, String alarmID, String alarmName = null)
     {
@@ -386,6 +396,7 @@ public class AlarmManager
 
         if(AlarmChanged != null && changed)
         {
+            alarmQueue.Enqueue(alarm);
             AlarmChanged.Invoke(this, alarm);
         }
 
@@ -592,5 +603,17 @@ public class AlarmManager
             }
         }
         return alarmsList;
+    }
+
+    public Task Run(Func<bool> canDequeue, CancellationToken ct)
+    {
+        alarmQueue.CanDequeue = canDequeue;
+        return alarmQueue.Run(ct);
+    }
+
+    public Task Run(CancellationToken ct)
+    {
+        alarmQueue.CanDequeue = () => true;
+        return alarmQueue.Run(ct);
     }
 }
