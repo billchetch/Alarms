@@ -605,6 +605,7 @@ public class AlarmManager
         return alarmsList;
     }
 
+    #region Running the queue stuff
     public Task Run(Func<bool> canDequeue, CancellationToken ct)
     {
         alarmQueue.CanDequeue = canDequeue;
@@ -616,4 +617,10 @@ public class AlarmManager
         alarmQueue.CanDequeue = () => true;
         return alarmQueue.Run(ct);
     }
+
+    public void Flush()
+    {
+        alarmQueue.Flush();
+    }
+    #endregion
 }
