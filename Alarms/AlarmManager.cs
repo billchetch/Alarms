@@ -277,10 +277,11 @@ public class AlarmManager
         }
     }
 
-    private Alarm alarmUnderTest;
-
+    public TaskStatus RunningStatus => alarmQueue.RunningStatus;
     public bool IsTesting => alarmUnderTest != null && alarmUnderTest.IsTesting;
 
+    private Alarm alarmUnderTest;
+    
     public AlarmManager()
     {
         alarmQueue.Dequeued += (sender, alarm) => {
