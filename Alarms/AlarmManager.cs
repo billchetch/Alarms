@@ -395,10 +395,10 @@ public class AlarmManager
         Alarm alarm = GetAlarm(alarmID, true);
         bool changed = alarm.Update(alarmState, alarmMessage, code);
 
-        if(AlarmChanged != null && changed)
+        if(changed)
         {
             alarmQueue.Enqueue(alarm);
-            AlarmChanged.Invoke(this, alarm);
+            AlarmChanged?.Invoke(this, alarm);
         }
 
         return alarm;
@@ -453,9 +453,10 @@ public class AlarmManager
             alarmUnderTest = alarm;
             bool changed = alarm.StartTest(alarmState, alarmMessage, code);
 
-            if (AlarmChanged != null && changed)
+            if (changed)
             {
-                AlarmChanged.Invoke(this, alarm);
+                alarmQueue.Enqueue(alarm);
+                AlarmChanged?.Invoke(this, alarm);
             }
         } catch (Exception e)
         {
