@@ -431,7 +431,7 @@ public class AlarmManager
         return UpdateAlarm(alarmID, AlarmState.DISABLED, null);
     }
 
-    public Alarm StartTest(String alarmID, AlarmState alarmState, String alarmMessage, int code = NO_CODE)
+    public Alarm StartTest(String alarmID, AlarmState alarmState, String alarmMessage, int code = CODE_START_TEST)
     {
         if (IsTesting)
         {
@@ -477,15 +477,16 @@ public class AlarmManager
         alarmUnderTest = null;
 
         bool changed = alarm.EndTest();
-        if (AlarmChanged != null && changed)
+        if (changed)
         {
-            AlarmChanged.Invoke(this, alarm);
+            alarmQueue.Enqueue(alarm);
+            AlarmChanged?.Invoke(this, alarm);
         }
         
         return alarm;
     }
 
-    public void RunTest(String alarmID, AlarmState alarmState, String alarmMessage, int duration, int code  = NO_CODE)
+    public void RunTest(String alarmID, AlarmState alarmState, String alarmMessage, int duration, int code  = CODE_START_TEST)
     {
         StartTest(alarmID, alarmState, alarmMessage, code);
         var task = Task.Run(() =>
