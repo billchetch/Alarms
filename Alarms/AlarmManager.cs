@@ -24,6 +24,7 @@ public class AlarmManager
     
     public const String COMMAND_LIST_ALARMS = "list-alarms";
     public const String COMMAND_TEST_ALARM = "test-alarm";
+    public const String COMMAND_ALARM_STATUS = "alarm-status";
 
     static public AlarmState GetRandomRaisedState()
     {
@@ -278,6 +279,9 @@ public class AlarmManager
     }
 
     public TaskStatus RunningStatus => alarmQueue.RunningStatus;
+
+    public int AlarmsQueued => alarmQueue.Count;
+
     public bool IsTesting => alarmUnderTest != null && alarmUnderTest.IsTesting;
 
     private Alarm alarmUnderTest;
