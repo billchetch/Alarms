@@ -24,7 +24,7 @@ public class AlarmManager
     
     public const String COMMAND_LIST_ALARMS = "list-alarms";
     public const String COMMAND_TEST_ALARM = "test-alarm";
-    public const String COMMAND_ALARM_STATUS = "alarm-status";
+    public const String COMMAND_REFERSH_ALARM = "refresh-alarm";
 
     static public AlarmState GetRandomRaisedState()
     {
